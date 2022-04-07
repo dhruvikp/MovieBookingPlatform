@@ -1,0 +1,37 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<style>
+table, th, td {
+	border: 1px solid black;
+}
+</style>
+
+<body>
+<h1> Movie Booking Platform Prototype</h1>
+
+<h2>All Movies List</h2>
+
+	<table>
+		<thead>
+			<tr>
+				<th>Movie Name</th>
+				<th>Movie Genre</th>
+				<th>Director Name</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:if="${movies.empty}">
+				<td colspan="2">No Movies Available</td>
+			</tr>
+			<tr th:each="movie : ${movies}">
+				<td><span th:text="${movie.movieName}"> Movie Name </span></td>
+				<td><span th:text="${movie.genre}"> Genre </span></td>
+				<td><span th:text="${movie.directorName}"> Director Name </span></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
