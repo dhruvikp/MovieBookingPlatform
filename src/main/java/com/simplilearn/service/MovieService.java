@@ -1,4 +1,4 @@
-package com.simplilearn.E2e_Rest_App.service;
+package com.simplilearn.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.simplilearn.entity.Director;
 import com.simplilearn.entity.Movie;
+import com.simplilearn.exceptions.MovieNotFoundException;
 import com.simplilearn.repository.DirectorRepository;
 import com.simplilearn.repository.MovieRepository;
 
@@ -33,8 +34,12 @@ public class MovieService {
 		return movies;
 	}
 
-	public Movie getMovieByName(String movieName) {
-		return movieRepository.findByName(movieName);
+	public Movie getMovieByName(String movieName) throws MovieNotFoundException {
+		Optional<Movie> optMovie = movieRepository.findByName(movieName);
+		if(!optMovie.isPresent()) {
+			throw new MovieNotFoundException();
+		}
+		return optMovie.get();
 	}
 
 	public void saveMovie(Movie movie) {
@@ -44,6 +49,16 @@ public class MovieService {
 			Director d = optioalDirector.get();
 			movie.setDirector(d);
 		}
+		movieRepository.save(movie);
+	}
+	
+	public void updateMovie(int id, Movie updateMovie) {
+		
+		Optional<Movie> optMovie = movieRepository.findById(id);
+		Movie movie = optMovie.get();
+		movie.setName(updateMovie.getName());
+		movie.setGenre(updateMovie.getGenre());
+		movie.setDirector(updateMovie.getDirector());
 		movieRepository.save(movie);
 	}
 

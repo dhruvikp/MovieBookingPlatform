@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.simplilearn.E2e_Rest_App.service.MovieService;
 import com.simplilearn.model.Movie;
+import com.simplilearn.service.MovieService;
 
 @Controller
 public class MovieMvcController {
